@@ -24,7 +24,7 @@ make open
 make clean
 ```
 
-### Features:
+### Features
 
 - read: read a file randomly.
 - write: write a file randomly.
@@ -40,7 +40,7 @@ make clean
 - set: a test for file system (copy files form host to easy-fs).
 - get: a test for file system (copy files from easy-fs to host).
 
-*maybe more in future:*
+*maybe more in future*
 
 - mv: move a file or a directory.
 - cp: copy a file or a directory.
@@ -48,7 +48,7 @@ make clean
 - find: find a file or a directory.
 - ln: create a link.
 
-
+*If your shell is garbled, it is probably because of the font, and you can modify the icons in the code yourself, or download and use [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf).*
 
 <img src="./pic/mixed_index_fs.png" alt="mixed_index_fs.png" width="80%" style="
   display: block;
