@@ -46,10 +46,10 @@ sudo apt-get install git fakeroot make build-essential ncurses-dev xz-utils libs
 
 1. 打开 init/main.c
 2. 查找 `start_kernel` 函数
-
-3. 写入 pr_notice(“学号 姓名”)
-
-> 可能有同学可能以为可以在 include/linux/uts.h 中通过修改 UTS_SYSNAME 来修改内核标签
+3. 写入 pr_notice("学号 姓名");
+> 尽量靠前, 否则可能不会输出(据说写的太靠后可能不会输出)
+> 
+> 另外, 可能有同学可能以为可以在 include/linux/uts.h 中通过修改 UTS_SYSNAME 来修改内核标签
 >
 > ```c
 > #define UTS_SYSNAME "Linux"
