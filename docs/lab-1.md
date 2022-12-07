@@ -45,7 +45,7 @@ sudo apt-get install git fakeroot make build-essential ncurses-dev xz-utils libs
 想法是寻找 main.c 或者与初始化相关的函数
 
 1. 打开 init/main.c
-2. 查找 start_kernel函数
+2. 查找 `start_kernel` 函数
 
 3. 写入 pr_notice(“学号 姓名”)
 
