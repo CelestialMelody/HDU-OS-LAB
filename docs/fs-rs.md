@@ -2,6 +2,8 @@
 
 An easy mixed index file system based on eazy-fs of rcore.
 
+*see the latest in [here](https://github.com/CelestialMelody/fs-rs)*
+
 ### Usage
 
 if you don't have rust environment, you can download rust by:

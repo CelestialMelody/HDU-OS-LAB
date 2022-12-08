@@ -127,7 +127,7 @@ vim ./arch/x86/entry/syscalls/syscall_64.tbl
 
 每个系统调用在表中占一个表项，其格式为
 
-`<系统调用号> <commom/64/x32> <系统调用名> <服务例程入口地址>`
+`<系统调用号> <common/64/x32> <系统调用名> <服务例程入口地址>`
 
 ```
 #kernal_lab_add_sys_call
