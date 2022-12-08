@@ -11,6 +11,12 @@ Operating system experiment of HDU: including kernel compilation, system call, p
 [实验过程](docs/lab-1.md)
 
 
+### lab-2 pstree kernel module
+
+实验二：pstree 内核模块
+
+[实验代码](lab2/)
+[使用说明](docs/lab-2.md)
 ### lab-5 easy file system
 
 an easy mix index file system based on rcore easy-fs using rust
