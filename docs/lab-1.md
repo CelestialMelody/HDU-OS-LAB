@@ -448,8 +448,24 @@ int main() {
 }
 ```
 
+Makefile
 
+```makefile
+SRC := $(wildcard *.c)
+# 移除后缀名
+TARGET := $(patsubst %.c, %, $(SRC))
 
+all: $(TARGET)
+
+# 依次编译(静态模式)
+$(TARGET): %: %.c
+	gcc -o $@ $<
+
+clean:
+	rm -f $(TARGET)
+```
+
+### 其他 
 
 
 > *参考命令*
