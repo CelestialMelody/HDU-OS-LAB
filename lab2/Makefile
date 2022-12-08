@@ -1,3 +1,6 @@
+obj-m := pstree.o
+
+TARGET := $(obj-m:.o=)
 MOD := $(obj-m:.o=).ko
 pid ?= 1
 LEN ?= 1000
