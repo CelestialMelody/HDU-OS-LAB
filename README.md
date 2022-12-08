@@ -1,6 +1,6 @@
 # HDU-OS-LAB
 
-Operating system experiment of HDU: including kernel compilation, system call, pstree kernel module, simulation shell, semaphore mechanism, pipeline communication, message queue communication, shared memory communication, simple file system(mix index file system). And simulation process list basic operation, process scheduling, banker algorithm.
+Operating system experiment of HDU: including kernel compilation, system call, pstree kernel module, simulation shell, semaphore mechanism, pipeline communication, message queue communication, shared memory communication, simple file system(mix index file system), and simulation process list basic operation, process scheduling, banker algorithm.
 
 杭州电子科技大学操作系统实验：内核编译、系统调用、pstree 内核模块、模拟 shell 、信号量机制、管道通信、消息队列通信、共享内存通信、简单文件系统（混合索引文件系统），以及模拟进程链表基本操作、进程调度、银行家算法。
 
@@ -17,6 +17,11 @@ Operating system experiment of HDU: including kernel compilation, system call, p
 
 [实验代码](lab2/)
 [使用说明](docs/lab-2.md)
+
+### PTA 题目
+
+[解题代码](pta/)
+[题目说明](docs/pta.md)
 ### lab-5 easy file system
 
 an easy mix index file system based on rcore easy-fs using rust
