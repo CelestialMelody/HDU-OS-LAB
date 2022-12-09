@@ -251,7 +251,7 @@ SYSCALL_DEFINE5(set_nice, pid_t, pid, int, flag, int, nicevalue, void __user *, 
 		set_user_nice(pcb, nicevalue);
 		cur_nice = task_nice(pcb);
 		cur_prio = task_prio(pcb);
-		pr_notice("new_prio: %d, new_nice: %d", cur_prio, cur_nice);
+		pr_notice("new_prio: %d, new_nice: %d\n", cur_prio, cur_nice);
 		// copy to user space
         if (copy_to_user(prio, &cur_prio, sizeof(cur_prio)))
 			return -EFAULT;
@@ -305,7 +305,7 @@ SYSCALL_DEFINE2(set_host_name, char __user *, name, int, len)
 		// 获取当前内核名称和其它信息，成功执行时，返回0。失败返回-1，errno被设为EFAULT，表示buf无效。
 		u = utsname();
 
-		pr_notice("old host name: %s", u->nodename);
+		pr_notice("old host name: %s\n", u->nodename);
 
 		// 从源内存地址的起始位置开始拷贝若干个字节到目标内存地址中
 		memcpy(u->nodename, tmp, len);
@@ -316,12 +316,15 @@ SYSCALL_DEFINE2(set_host_name, char __user *, name, int, len)
 		// 释放写锁
 		up_write(&uts_sem);
 
-		pr_notice("new host name: %s", u->nodename);
+		pr_notice("new host name: %s\n", u->nodename);
 	}
 	return errno;
 }
 ```
 
+> 虽然无论是 pr_notice 还是 printk 都会默认打印出换行符, 但还是建议在最后加上换行符, 以免出现 dmesg 信息滞后(最后一条没显示, 但实际会打印, 不过没显示, 只有下次使用 printk 时, 再 dmesg 会显示); 不过目前来看, 可能还是有这个问题(不过只是小bug)
+>
+> 还有一个小问题是: 对于 set_host_name, 可以使用 uname -n (或者对于 bash 可以直观看出); 但是, 可能会遇见 dmseg 阻塞问题
 
 
 #### 编译内核
