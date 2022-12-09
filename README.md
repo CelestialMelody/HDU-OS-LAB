@@ -41,4 +41,3 @@ an easy mix index file system based on rcore easy-fs using rust
 这是一个使用 rust 语言编写的，基于 rcore easy-fs 的简单混合索引文件系统，项目地址：[fs-rs](https://github.com/CelestialMelody/fs-rs.git)
 
 [项目介绍](docs/fs-rs.md)
-
