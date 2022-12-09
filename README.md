@@ -16,7 +16,19 @@ Operating system experiment of HDU: including kernel compilation, system call, p
 实验二：pstree 内核模块
 
 [实验代码](lab2/)
-[使用说明](docs/lab-2.md)
+[实验说明](docs/lab-2.md)
+
+### lab-3
+
+- 模拟 shell
+- 信号量机制
+- 管道通信
+- 消息队列通信
+- 共享内存通信
+
+[实验代码](lab3/)
+[实验说明](docs/lab-3.md)
+
 
 ### PTA 题目
 
@@ -29,3 +41,4 @@ an easy mix index file system based on rcore easy-fs using rust
 这是一个使用 rust 语言编写的，基于 rcore easy-fs 的简单混合索引文件系统，项目地址：[fs-rs](https://github.com/CelestialMelody/fs-rs.git)
 
 [项目介绍](docs/fs-rs.md)
+
