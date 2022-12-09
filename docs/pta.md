@@ -8,6 +8,9 @@
 
 **输入样例**
 
+<details>
+<summary>展开查看</summary>
+<pre><code>
 1、在这里给出一组sort操作的输入数据。例如：
 
 ```in
@@ -103,9 +106,14 @@ insert 170209 170211 vim 21 15
 170201 more 22 10
 find 170203
 ```
+</code></pre>
+</details>
 
 **输出样例**
 
+<details>
+<summary>展开查看</summary>
+<pre><code>
 1、在这里给出sort操作的相应输出。例如：
 
 ```out
@@ -180,6 +188,8 @@ find 170203
 170203
 4
 ```
+</code></pre>
+</details>
 
 
 
@@ -192,7 +202,9 @@ find 170203
 假设时间片是2，进程每次调度运行后，其还需运行的时间应该减少2，直至为0，即表示该进程执行完毕。
 
 **输入样例**
-
+<details>
+<summary>展开查看</summary>
+<pre><code>
 1、在这里给出一组输入。例如：
 
 ```in
@@ -213,9 +225,14 @@ FCFS 5
 spf 8
 8 4 7 3 1 6 4 5
 ```
+</code></pre>
+</details>
 
 **输出样例**
 
+<details>
+<summary>展开查看</summary>
+<pre><code>
 1、在这里给出相应的输出。例如：
 
 ```out
@@ -283,8 +300,8 @@ P02
 P00
 P00
 ```
-
-
+</code></pre>
+</details>
 
 ### 模拟银行家算法
 
@@ -330,6 +347,9 @@ P00
 
 **输入样例**
 
+<details>
+<summary>展开查看</summary>
+<pre><code>
 1、在这里给出一组输入。例如：
 
 ```in
@@ -383,9 +403,14 @@ P00
 3 3 2
 0 3 3 0
 ```
+</code></pre>
+</details>
 
 **输出样例**
 
+<details>
+<summary>展开查看</summary>
+<pre><code>
 1、在这里给出相应的输出。例如：
 
 ```out
@@ -413,3 +438,5 @@ P04
 ```out
 unsafe
 ```
+</code></pre>
+</details>
