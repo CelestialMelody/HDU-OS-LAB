@@ -43,6 +43,10 @@ int main()
         pid = fork();
         if (0 == pid) // child process
         {
+            // 使用这种方式创建 3 个子进程
+            // 并且可以有效区分父子进程
+            // id = 0, 1, 2 为子进程
+            // id = 3 为父进程
             break;
         }
         if (0 > pid)
