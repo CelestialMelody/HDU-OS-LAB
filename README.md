@@ -18,7 +18,9 @@ Operating system experiment of HDU: including kernel compilation, system call, p
 [实验代码](lab2/)
 [实验说明](docs/lab-2.md)
 
-### lab-3
+### lab-3 IPC, sync and mutex
+
+实验三：进程间通信和同步互斥
 
 - 模拟 shell
 - 信号量机制
