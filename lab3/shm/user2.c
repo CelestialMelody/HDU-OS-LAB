@@ -5,12 +5,17 @@ pthread_t r_thread, s_thread;
 void *send(void *arg)
 {
     char msg[MEM_MIN_SIZE]; // msg -> fmt string
-    char s_str[100];        // input string
+    // char s_str[100];        // input string; bug
     while (1)
     {
+        char s_str[100] = {0}; // fix bug
         printf("Process %d input:\n", *((pid_t *)arg));
         fflush(stdout); // fflush(stdout) is to flush the output buffer.
-        scanf("%[^\n]%*c", s_str);
+
+        // scanf("%[^\n]%*c", s_str); // cant read line with space
+
+        fgets(s_str, 100, stdin);        // can read line with space
+        s_str[strlen(s_str) - 1] = '\0'; // remove '\n'
 
         // Wait for the receiver to be ready.
         sem_wait(sem_sender);
