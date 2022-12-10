@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include "init.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,12 +21,17 @@ int main(int argc, char *argv[])
             printf("mkfifo success\n");
         }
     }
+
+    // 借助信号量
+    init(); // 可以不借助信号量
+
     int fd = open(argv[1], O_WRONLY); // 打开FIFO文件 O_RDONLY O_WRONLY O_RDWR
 
     while (1)
     {
         char buf[1024] = {0};
-        if (!scanf("%s", buf))
+        // if (!scanf("%s", buf)) // scanf 忽略空格 换行
+        if (!fgets(buf, sizeof(buf), stdin)) // fgets 读取换行符
         {
             close(fd);
             unlink(argv[1]);
@@ -41,9 +39,17 @@ int main(int argc, char *argv[])
             exit(1);
         }
 
-        write(fd, buf, strlen(buf));
+        sem_wait(sem_send);
+        sem_wait(mutex);
+        write(fd, buf, strlen(buf) - 1); // -1 去掉换行符
+        sem_post(mutex);
+        sem_post(sem_receive);
 
-        if (0 == strcmp(buf, "quit") || 0 == strcmp(buf, "exit"))
+        // 可以不借助信号量
+        // write(fd, buf, strlen(buf) - 1);
+
+        // if (0 == strcmp(buf, "quit") || 0 == strcmp(buf, "exit")) // 使用 scanf
+        if (0 == strncmp(buf, "quit", 4) || 0 == strncmp(buf, "exit", 4)) // 使用 fgets
         {
             close(fd);
             unlink(argv[1]);
@@ -52,5 +58,6 @@ int main(int argc, char *argv[])
     }
 
     close(fd);
+    _unlink(); // 可以不借助信号量
     return 0;
 }

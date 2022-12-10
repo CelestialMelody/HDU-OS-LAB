@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include "init.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +8,9 @@ int main(int argc, char *argv[])
         printf("miss fifoname\n");
         exit(1);
     }
+
+    // 借助信号量
+    init(); // 可以不借助信号量
 
     // access: 判断文件是否存在
     // F_OK: 判断文件是否存在
@@ -40,15 +35,26 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    // bug: 没有新建一个 buf 会导致 buf 之前的读取长度大于 quit 或者 exit 的长度时 读取的内容不仅仅是 quit 或者 exit
     char buf[1024] = {0};
-
     int fifo_size = 0;
 
-    // 方式一: 一直读取数据直到输入 quit 或者 exit
+    // 方式一:
+    // 一直读取数据直到输入 quit 或者 exit
     while (1)
     {
         // 读取数据
+        char buf[1024] = {0}; // fix bug
+
+        sem_wait(sem_receive);
+        sem_wait(mutex);
         read(fd, buf, sizeof(buf));
+        sem_post(mutex);
+        sem_post(sem_send);
+
+        // read(fd, buf, sizeof(buf)); // 可以不借助信号量
+
+        // bug: buf 之前的读取长度大于 quit 或者 exit 的长度时 读取的内容不仅仅是 quit 或者 exit
         if (0 == strcmp(buf, "quit") || 0 == strcmp(buf, "exit"))
         {
             close(fd);
@@ -58,7 +64,8 @@ int main(int argc, char *argv[])
         printf("read: %s\n", buf);
     }
 
-    // 方式二: 读取指定的字节数 直到管道为空
+    // 方式二:
+    // 读取指定的字节数 直到管道为空
     // while (1)
     // {
     //     printf("please input the counts of chars you want to read:\n");
@@ -73,10 +80,9 @@ int main(int argc, char *argv[])
     //     }
 
     //     memset(buf, 0, sizeof(buf));
-    //     // read(fd, buf, sizeof(buf));
 
-    //     // 设置读取的字节数
     //     read(fd, buf, count);
+    //     // 设置读取的字节数
     //     printf("read: %s\n", buf);
 
     //     // count the fifo size
@@ -100,5 +106,8 @@ int main(int argc, char *argv[])
 
     close(fd);
     unlink(argv[1]);
+
+    // 删除信号量
+    // _unlink(); // 可以不借助信号量
     return 0;
 }
