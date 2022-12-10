@@ -2,7 +2,7 @@
 
 int main()
 {
-    char str[100];
+    // char str[100]; // bug
     int msgid;
     struct Msgbuf r_msg; // 消息接受区
     struct Msgbuf s_msg;
@@ -23,12 +23,18 @@ int main()
 
     while (1)
     {
+        char str[100] = {0}; // fix bug
         printf("input:\n");
-        // %[^\n]表示读取除换行符以外的所有字符
-        // %*c表示读取一个字符并丢弃
-        scanf("%[^\n]%*c", str);
 
-        if (strcmp(str, "end1") == 0)
+        // used
+        // see https://stackoverflow.com/questions/30065675/what-does-scanf-nc-mean
+        // scanf("%[^\n]%*c", str);
+
+        fgets(str, 100, stdin); // 会读取空格与换行符
+
+        // used
+        // if (strcmp(str, "end1") == 0)
+        if (strncmp(str, "end1", 4) == 0)
         {
             printf("please send \"exit\"\n");
             continue;
@@ -36,7 +42,10 @@ int main()
 
         sem_wait(sem_send);
 
-        if (strcmp(str, "exit") == 0)
+        // used
+        // if (strcmp(str, "exit") == 0)
+
+        if (strncmp(str, "exit", 4) == 0)
         {
             strcpy(s_msg.text, "end1");
             msgsnd(msgid, &s_msg, sizeof(struct Msgbuf), 0);
@@ -44,7 +53,18 @@ int main()
             break;
         }
 
+        // used
+        // strcpy(s_msg.text, str);
+
+        // str 丢弃换行符后再发送
+        str[strlen(str) - 1] = '\0'; // fix bug
+        // strncpy(s_msg.text, str, strlen(str) - 1); // bug 不会清空s_msg.text
         strcpy(s_msg.text, str);
+
+        // test
+        printf("sender1 str len: %ld\n", strlen(str));
+        printf("s_msg.text len: %ld\n", strlen(s_msg.text)); // 发现没有清空
+
         msgsnd(msgid, &s_msg, sizeof(struct Msgbuf), 0);
         sem_post(sem_receive);
     }

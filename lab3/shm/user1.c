@@ -11,8 +11,7 @@ void *send(void *arg)
     {
         printf("Process %d input:\n", *((pid_t *)arg));
         fflush(stdout);
-        // %[^\n] 指定输入的字符串中不包含换行符
-        // %*c 读取并丢弃一个字符
+        // see https://stackoverflow.com/questions/30065675/what-does-scanf-nc-mean
         scanf("%[^\n]%*c", s_str);
 
         // Wait for the receiver to be ready.
