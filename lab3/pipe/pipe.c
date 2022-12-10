@@ -113,18 +113,26 @@ int main()
         close(fd[0]);    // close read end
         sem_wait(mutex); // lock
         printf("Child %d (pid:%d) send: ", id, getpid());
-        scanf("%[^\n]%*c", buf); // read from stdin, %[^\n]%*c : read until newline
-        write(fd[1], buf, strlen(buf));
-        sem_post(mutex);    // unlock
-        sem_post(receive1); // send signal to parent
+
+        // scanf("%[^\n]%*c", buf); // read from stdin, %[^\n]%*c : read until newline
+        // write(fd[1], buf, strlen(buf));
+
+        fgets(buf, 1024, stdin);
+        write(fd[1], buf, strlen(buf) - 1); // -1 to remove newline
+        sem_post(mutex);                    // unlock
+        sem_post(receive1);                 // send signal to parent
     }
     else if (1 == id)
     { // child process 2
         close(fd[0]);
         sem_wait(mutex);
         printf("Child %d (pid:%d) send: ", id, getpid());
-        scanf("%[^\n]%*c", buf);
-        write(fd[1], buf, strlen(buf));
+
+        // scanf("%[^\n]%*c", buf);
+        // write(fd[1], buf, strlen(buf));
+
+        fgets(buf, 1024, stdin);
+        write(fd[1], buf, strlen(buf) - 1); // -1 to remove newline
         sem_post(mutex);
         sem_post(receive2);
     }
@@ -133,8 +141,12 @@ int main()
         close(fd[0]);
         sem_wait(mutex);
         printf("Child %d (pid:%d) send: ", id, getpid());
-        scanf("%[^\n]%*c", buf);
-        write(fd[1], buf, strlen(buf));
+
+        // scanf("%[^\n]%*c", buf);
+        // write(fd[1], buf, strlen(buf));
+
+        fgets(buf, 1024, stdin);
+        write(fd[1], buf, strlen(buf) - 1); // -1 to remove newline
         sem_post(mutex);
         sem_post(receive3);
     }
